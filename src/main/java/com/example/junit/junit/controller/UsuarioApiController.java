@@ -27,8 +27,8 @@ public class UsuarioApiController {
 	
 	@GetMapping("/login")
 	public String login(@RequestParam("user") String user, 
-			@RequestParam("password") String password) {		
-		return usuarioService.login(user, password);
+			@RequestParam("pass") String pass) {		
+		return usuarioService.login(user, pass);
 	}
 	
 	@GetMapping("/obtener-usuario")

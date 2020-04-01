@@ -19,9 +19,9 @@ import com.example.junit.junit.service.UsuarioService;
 public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
-	public String login(String user, String password) {
+	public String login(String user, String pass) {
 		// TODO Auto-generated method stub
-		if(user.equals("admin") && password.equals("admin")) {
+		if(user.equals("admin") && pass.equals("admin")) {
 			return "Login exitoso";
 		}
 		return "Login Fallido";

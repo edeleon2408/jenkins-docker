@@ -18,7 +18,7 @@ public interface UsuarioService {
 	 * @param password
 	 * @return
 	 */
-	public String login(String user, String password);
+	public String login(String user, String pass);
 	
 	/**
 	 * @param Id
