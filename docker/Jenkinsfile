@@ -3,11 +3,89 @@ pipeline {
  agent any
  stages {
         stage('Checkout-git-kaizen'){
-             
-             steps{
-                echo 'Revisando repositorio del Proyecto'
-					git poll: true, url: 'https://github.com/edeleon2408/jenkins-docker.git'
-             }        	
+             when {
+                    branch 'master'
+             }
+               steps{
+                echo 'Revisando repositorio del Proyecto Kaizen'
+		git poll: true, url: 'https://edeleon28@bitbucket.org/grupo_asd_dd/kaz_prs_backend.git'
+               }
         }
+        stage('Install kaizen-system') {
+             when {
+                branch 'master'
+            }
+            steps {
+                echo 'Realizando Install al Proyecto kaizen-system'
+		bat 'kaizen-system\\C:\\maven-3.6.2\\bin\\mvn clean compile install deploy'
+
+            }
+        }
+        stage('Install kaizen-core') {
+             when {
+                branch 'master'
+            }
+            steps {
+                echo 'Realizando Install al Proyecto kaizen-core'
+		bat 'kaizen-core\\C:\\maven-3.6.2\\bin\\mvn clean compile install deploy'
+
+            }
+        }
+        stage('Packaging kaizen-admin-pi') {
+             when {
+            branch 'master'
+	 }
+            steps {
+                echo 'Realizando Packaging al Proyecto kaizen-admin-api'
+		bat 'kaizen-admin-api\\C:\\maven-3.6.2\\bin\\mvn clean compile package deploy'
+
+            }
+        }
+        stage('Packaging kaizen-pi') {
+             when {
+            branch 'master'
+	 }
+            steps {
+                echo 'Realizando Packaging al Proyecto kaizen-api'
+		bat 'kaizen-api\\C:\\maven-3.6.2\\bin\\mvn clean compile package deploy'
+
+            }
+        }        
+        stage('SonarQube Project kaizen') {
+             when {
+            branch 'master'
+	 }
+            steps {
+                echo 'Test SonarQube'
+		bat 'C:\\maven-3.6.2\\bin\\mvn sonar:sonar -Dsonar.projectKey=kaizen -Dsonar.host.url=http://10.0.11.15:9000 -Dsonar.login=e799fc83980ef097d519d379b6290ab17f6f29aa'
+
+            }
+        }
+        
+       /*
+        stage('Build Docker kaizen-admin-api') {
+            steps {
+            	sh '''
+            		docker build -f kaizen-admin-api\\docker\\Dockerfile -t kaizen-admin-api .
+                '''
+            }
+        } 
+        stage('Build Docker kaizen-api') {
+            steps {
+            	sh '''
+            		docker build -f kaizen-api\\docker\\Dockerfile -t kaizen-api .
+                '''
+            }
+        } 
+        stage('PushDockerImage') {
+                steps {
+                    sh '''
+                            docker tag kaizen-admin-api kaizen-admin-api:latest
+                                            docker push kaizen-admin-api:latest
+                                            docker rmi kaizen-admin-api:latest
+                    '''
+                }
+            }*/ 
+  }
 }
 
