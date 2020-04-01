@@ -40,4 +40,9 @@ public class UsuarioApiController {
 	public List<Usuario> listarUsuarios(){
 		return usuarioService.listarUsuarios();
 	}
+	
+	@GetMapping("/prueba")
+	public String prueba() {
+		return "Api de prueba";
+	}
 }
