@@ -18,7 +18,7 @@ pipeline {
     	 steps{
             echo 'Construyendo Imagen Docker del Proyecto'
 			bat 'docker build -f docker/Dockerfile -t jenkins-docker-api .'
-			bat 'docker rm -f jenkins-docker-api'			
+			//bat 'docker rm -f jenkins-docker-api'			
 	   }        	
     }
     stage('Build-Container-Docker'){     
