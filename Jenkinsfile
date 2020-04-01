@@ -23,8 +23,10 @@ pipeline {
     stage('Build-Container-Docker'){     
     	 steps{
             echo 'Construyendo Contenedor Docker del Proyecto'	
-            bat 'cd docker'		
-			bat 'docker-compose up -d'
+            bat """
+                   cd docker
+            	   docker-compose up -d	
+            	"""
 	   }        	
     }
     
