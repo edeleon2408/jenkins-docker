@@ -14,7 +14,19 @@ pipeline {
 			bat 'mvn clean compile install'
 	   }        	
     }
-    
+    stage('Build-Image-Docker'){     
+    	 steps{
+            echo 'Construyendo Imagen Docker del Proyecto'
+			bat 'docker build -f docker/Dockerfile -t jenkins-docker-api .'			
+	   }        	
+    }
+    stage('Build-Container-Docker'){     
+    	 steps{
+            echo 'Construyendo Contenedor Docker del Proyecto'	
+            bat 'cd docker'		
+			bat 'docker-compose up -d'
+	   }        	
+    }
     
   }
 }
