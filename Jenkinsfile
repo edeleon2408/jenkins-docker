@@ -14,6 +14,12 @@ pipeline {
 			bat 'mvn clean compile install'
 	   }        	
     }
+    stage('Check-SonarQ-Proyecto'){     
+    	 steps{
+            echo 'Check Codigo en SonarQubw'
+			bat 'mvn sonar:sonar -Dsonar.projectKey=jenkins-docker -Dsonar.host.url=http://localhost:9000 -Dsonar.login=e912d85e3f5694ca98fcfd005877c2f469a486ba'
+	   }        	
+    }
     stage('Build-Image-Docker'){     
     	 steps{
             echo 'Construyendo Imagen Docker del Proyecto'
