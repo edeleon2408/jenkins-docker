@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+    jenkins-docker-api:
+        image: jenkins-docker-api
+        container_name: jenkins-docker-api
+        ports:
+            - 8090:8090
+        networks:
+            - jenkins
+        #env_file: docker-compose.env        
+        volumes:
+            - /opt/jenkins/assets/:/usr/share/assets/
+
+    #kaizen-admin-api:
+    #    depends_on:
+    #        - kaizen-admin
+    #    image: kaizen-admin-api
+    #    restart: always
+    #    env_file: docker-compose.env        
+    #    volumes:
+    #        - /opt/kaizen/admin/assets/images/:/tmp/kaizen/admin/assets/images/
+    
+networks:
+    jenkins:
+      driver: bridge
